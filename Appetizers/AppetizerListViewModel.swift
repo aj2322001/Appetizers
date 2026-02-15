@@ -9,6 +9,7 @@ import Foundation
 
 class AppetizerListViewModel: ObservableObject {
     @Published var appetizers: [Appetizer] = []
+    @Published var alertItem: AlertItem?
     
     func getAppetiers() {
         NetworkManager.shared.getAppetizers { result in
@@ -17,7 +18,7 @@ class AppetizerListViewModel: ObservableObject {
                 case .success(let appetizersFromServer):
                     self.appetizers = appetizersFromServer
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    self.alertItem = AlertItem.getAlertItem(err: error)
                 }
             }
         }
