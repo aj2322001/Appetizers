@@ -10,9 +10,14 @@ import Foundation
 class AppetizerListViewModel: ObservableObject {
     @Published var appetizers: [Appetizer] = []
     @Published var alertItem: AlertItem?
+    @Published var isLoading: Bool = false
     
     func getAppetiers() {
-        NetworkManager.shared.getAppetizers { result in
+        isLoading = true
+        NetworkManager.shared.getAppetizers { [self] result in
+            DispatchQueue.main.async { [self] in
+                isLoading = false
+            }
             DispatchQueue.main.async {
                 switch result {
                 case .success(let appetizersFromServer):

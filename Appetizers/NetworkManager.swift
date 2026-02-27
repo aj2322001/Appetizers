@@ -5,10 +5,11 @@
 //  Created by Archit  Joshi on 14/02/26.
 //
 
-import Foundation
+import UIKit
 
 final class NetworkManager {
     static let shared = NetworkManager()
+    private let cache = NSCache<NSString, UIImage>()
     
     static let baseUrl: String = "https://6979bdb3cc9c576a8e17871b.mockapi.io/v1/"
     private let appetizerUrl: String = baseUrl + "AppetizerList"
@@ -49,4 +50,27 @@ final class NetworkManager {
         task.resume()
     }
     
+    func downloadImage(from urlString: String,completed: @escaping (UIImage?) -> Void) {
+        let cacheKey = NSString(string: urlString)
+        if let image = cache.object(forKey: cacheKey) {
+            completed(image)
+            return
+        }
+        
+        guard let url = URL(string: urlString) else {
+            completed(nil)
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { [self] data, response, error in
+            guard let data, let image = UIImage(data: data) else {
+                completed(nil)
+                return
+            }
+            
+            cache.setObject(image, forKey: cacheKey)
+            completed(image)
+        }
+        task.resume() 
+    }
 }
