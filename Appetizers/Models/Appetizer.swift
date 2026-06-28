@@ -16,6 +16,21 @@ struct Appetizer: Decodable, Identifiable {
     let protein: Int
     let calories: Int
     let carbs: Int
+    
+    var ingredientInfo: [IngredientInfo] {
+        return [
+            IngredientInfo(item: "Calories", infoDesc: "\(calories)"),
+            IngredientInfo(item: "Carbs", infoDesc: "\(carbs) g"),
+            IngredientInfo(item: "Protein", infoDesc: "\(protein) g"),
+        ]
+    }
+    
+}
+
+struct IngredientInfo: Identifiable {
+    let id = UUID()
+    let item: String
+    let infoDesc: String
 }
 
 struct MockData {
