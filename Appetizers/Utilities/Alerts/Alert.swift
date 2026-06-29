@@ -38,6 +38,22 @@ struct AlertItem: Identifiable {
             messageString = "Unable to complete your request at this time. Please check your internet connection."
             dismissBtnString = "Ok"
             break
+        case .invalidForm:
+            titleString = "Invalid Form"
+            messageString = "please ensure all fields in the form have been filled out."
+            dismissBtnString = "Ok"
+        case .invalidEmail:
+            titleString = "Invalid Email"
+            messageString = "please ensure a your email is correct."
+            dismissBtnString = "Ok"
+        case .userSaveSuccess:
+            titleString = "Profile Saved"
+            messageString = "Your profile info was sucessfully saved"
+            dismissBtnString = "Ok"
+        case .invalidUserData:
+            titleString = "Profile Error"
+            messageString = "There was an error saving or retrieving your profile"
+            dismissBtnString = "Ok"
         }
         return AlertItem(title: Text(titleString),
                          message: Text(messageString),
