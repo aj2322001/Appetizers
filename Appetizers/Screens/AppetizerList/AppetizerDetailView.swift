@@ -11,6 +11,7 @@ import SwiftUI
 //MARK: Main Details View
 struct AppetizerDetailView: View {
     @Binding var appetizer: Appetizer?
+    @EnvironmentObject var order: Order
     
     var body: some View {
             
@@ -46,7 +47,9 @@ struct AppetizerDetailView: View {
             APButton(
                 title: "$\(appetizer?.price ?? 0, specifier: "%.2f") - Add To Order"
             ){
-                print("tapped")
+                guard let appetizer else { return }
+                order.add(appetizer)
+                dismissView()
             }
             .padding(.all, 12)
         }
@@ -57,10 +60,14 @@ struct AppetizerDetailView: View {
         .shadow(radius: 40)
         .overlay (alignment: .topTrailing) {
             DismissXButton {
-                appetizer = nil
+                dismissView()
             }
         }
         .ignoresSafeArea()
+    }
+    
+    private func dismissView() {
+        appetizer = nil
     }
 }
 

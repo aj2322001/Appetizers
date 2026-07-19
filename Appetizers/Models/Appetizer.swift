@@ -34,14 +34,28 @@ struct IngredientInfo: Identifiable {
 }
 
 struct MockData {
-    static let sampleAppetizer: Appetizer = Appetizer(id: "01",
-                                                      name: "some random Name",
-                                                      description: "some random description... some random description... some random description... some random description... some random description... some random description... some random description... some random description... some random description... some random description... some random description... some random description... some random description... ",
-                                                      price: 8.99,
-                                                      imageURL: "foodImage",
-                                                      protein: 500,
-                                                      calories: 5000,
-                                                      carbs: 50)
+    static let sampleAppetizer: Appetizer = Appetizer(
+                                              id: UUID().uuidString,
+                                              name: "some random Name",
+                                              description: "some random description... some random description... some random description... some random description... some random description... some random description... some random description... some random description... some random description... some random description... some random description... some random description... some random description... ",
+                                              price: 8.99,
+                                              imageURL: "foodImage",
+                                              protein: 500,
+                                              calories: 5000,
+                                              carbs: 50
+                                            )
    
-    static let sampleAppetizerArr: [Appetizer] = [sampleAppetizer,sampleAppetizer,sampleAppetizer,sampleAppetizer]
+    static let sampleAppetizerArr: [Appetizer] = (1...4).map { item in
+                                                    let id = String(item)
+                                                    return Appetizer(
+                                                                id: id,
+                                                                name: "Some Random Name \(id)",
+                                                                description: "Some random description...",
+                                                                price: 8.99,
+                                                                imageURL: "foodImage",
+                                                                protein: 500,
+                                                                calories: 5000,
+                                                                carbs: 50
+                                                            )
+                                                }
 }

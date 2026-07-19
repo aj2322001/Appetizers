@@ -40,7 +40,7 @@ struct AppetizerListView: View {
                   message: item.message,
                   dismissButton: item.dismissButton)
         }
-    }
+    } 
 }
 
 #Preview {
