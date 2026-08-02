@@ -1,4 +1,4 @@
-# Appetizers
+# Appetizers 
 
 <p align="center">
   A clean iOS food-ordering app for browsing appetizers, viewing item details,
